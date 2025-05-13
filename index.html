@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STRITS WEB - Transporte de Mascotas</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background-color: #4CAF50;
+            padding: 20px 0;
+            color: white;
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-right: 20px;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            background-color: #388E3C;
+        }
+        
+        nav ul li a.active {
+            background-color: #388E3C;
+        }
+        
+        .page {
+            display: none;
+            padding: 40px 0;
+        }
+        
+        .page.active {
+            display: block;
+        }
+        
+        .section-title {
+            margin-bottom: 30px;
+            font-size: 32px;
+            color: #4CAF50;
+            border-bottom: 2px solid #4CAF50;
+            padding-bottom: 10px;
+        }
+        
+        .mission-vision {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .mission, .vision {
+            background-color: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .mission h3, .vision h3 {
+            margin-bottom: 15px;
+            color: #4CAF50;
+            font-size: 24px;
+        }
+        
+        .mission p, .vision p {
+            line-height: 1.6;
+            font-size: 16px;
+        }
+        
+        .contact-info {
+            background-color: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .contact-info h3 {
+            margin-bottom: 20px;
+            color: #4CAF50;
+            font-size: 24px;
+        }
+        
+        .contact-info p {
+            margin-bottom: 15px;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+        
+        .login-section {
+            background-color: white;
+            padding: 35px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 15px;
+        }
+        
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: #388E3C;
+        }
+        
+        .pet-form {
+            display: none;
+        }
+        
+        footer {
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 60px;
+        }
+        
+        .home-banner {
+            background-image: url('/api/placeholder/800/400');
+            background-size: cover;
+            background-position: center;
+            height: 300px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            position: relative;
+        }
+        
+        .home-banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 12px;
+        }
+        
+        .banner-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .banner-content h2 {
+            font-size: 36px;
+            margin-bottom: 15px;
+        }
+        
+        .contact-methods {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .contact-card {
+            flex: 1;
+            min-width: 220px;
+            background-color: #f5f5f5;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .contact-card i {
+            font-size: 30px;
+            color: #4CAF50;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">STRITS WEB</div>
+            <nav>
+                <ul>
+                    <li><a href="#" class="nav-link active" data-page="home">Inicio</a></li>
+                    <li><a href="#" class="nav-link" data-page="services">Servicios</a></li>
+                    <li><a href="#" class="nav-link" data-page="contact">Contacto</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <main class="container">
+        <!-- Página de inicio -->
+        <section id="home" class="page active">
+            <div class="home-banner">
+                <div class="banner-content">
+                    <h2>Transporte Seguro para tus Mascotas</h2>
+                    <p>Conectamos dueños de mascotas con transportistas capacitados</p>
+                </div>
+            </div>
+            
+            <h2 class="section-title">Sobre Nosotros</h2>
+            
+            <div class="mission-vision">
+                <div class="mission">
+                    <h3>Nuestra Misión</h3>
+                    <p>En STRITS WEB queremos impulsar a una microempresa de transporte de mascotas a ser reconocida entre las aplicaciones de transporte, proporcionando un servicio eficaz, confiable y seguro que conecte a dueños de mascotas con transportistas capacitados y apasionados por el bienestar animal.</p>
+                </div>
+                
+                <div class="vision">
+                    <h3>Nuestra Visión</h3>
+                    <p>En STRITS WEB queremos impulsar a una microempresa de transporte de mascotas a ser reconocida entre las aplicaciones de transporte, proporcionando un servicio eficaz, confiable y seguro que conecte a dueños de mascotas con transportistas capacitados y apasionados por el bienestar animal.</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Página de servicios -->
+        <section id="services" class="page">
+            <h2 class="section-title">Nuestros Servicios</h2>
+            
+            <div class="login-section">
+                <div id="login-form">
+                    <h3>Iniciar Sesión</h3>
+                    <p>Por favor, ingresa tu correo electrónico para acceder a nuestros servicios de transporte para mascotas:</p>
+                    <div class="form-group">
+                        <label for="email">Correo Electrónico:</label>
+                        <input type="email" id="email" required placeholder="ejemplo@correo.com">
+                    </div>
+                    <button id="login-btn">Iniciar Sesión</button>
+                </div>
+                
+                <div id="pet-form" class="pet-form">
+                    <h3>Registro de Mascota para Transporte</h3>
+                    <p>Por favor, proporciona la información de tu mascota para ofrecerte el mejor servicio de transporte:</p>
+                    
+                    <div class="form-group">
+                        <label for="pet-type">Tipo de Mascota:</label>
+                        <input type="text" id="pet-type" placeholder="Ej. Perro, Gato, Conejo, etc." required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="pet-breed">Raza:</label>
+                        <input type="text" id="pet-breed" placeholder="Ej. Labrador, Siamés, etc." required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="pet-age">Edad:</label>
+                        <input type="text" id="pet-age" placeholder="Ej. 2 años, 6 meses" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="pet-health">Enfermedad o Cuidado Especial:</label>
+                        <input type="text" id="pet-health" placeholder="Indica si tu mascota requiere algún cuidado especial">
+                    </div>
+                    
+                    <button id="submit-pet">Solicitar Transporte</button>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Página de contacto -->
+        <section id="contact" class="page">
+            <h2 class="section-title">Contacto</h2>
+            
+            <div class="contact-info">
+                <h3>¡Comunícate con Nosotros!</h3>
+                
+                <p>En STRITS WEB estamos disponibles para ayudarte con el transporte seguro de tu mascota. Ponte en contacto con nosotros a través de cualquiera de los siguientes medios:</p>
+                
+                <div class="contact-methods">
+                    <div class="contact-card">
+                        <i>📞</i>
+                        <h4>Teléfonos</h4>
+                        <p>316 789 3462</p>
+                        <p>314 625 2640</p>
+                    </div>
+                    
+                    <div class="contact-card">
+                        <i>📱</i>
+                        <h4>Redes Sociales</h4>
+                        <p>Instagram: @strits.web</p>
+                    </div>
+                    
+                    <div class="contact-card">
+                        <i>✉️</i>
+                        <h4>Correo Electrónico</h4>
+                        <p>stritsweb@gmail.com</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 STRITS WEB - Transporte de Mascotas. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Navegación entre páginas
+        const navLinks = document.querySelectorAll('.nav-link');
+        const pages = document.querySelectorAll('.page');
+        
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Desactivar todos los enlaces y páginas
+                navLinks.forEach(item => item.classList.remove('active'));
+                pages.forEach(page => page.classList.remove('active'));
+                
+                // Activar el enlace y la página correspondiente
+                this.classList.add('active');
+                const pageId = this.getAttribute('data-page');
+                document.getElementById(pageId).classList.add('active');
+            });
+        });
+        
+        // Manejo del formulario de inicio de sesión
+        const loginBtn = document.getElementById('login-btn');
+        const loginForm = document.getElementById('login-form');
+        const petForm = document.getElementById('pet-form');
+        const submitPetBtn = document.getElementById('submit-pet');
+        
+        loginBtn.addEventListener('click', function() {
+            const email = document.getElementById('email').value;
+            
+            if (email && email.includes('@')) {
+                loginForm.style.display = 'none';
+                petForm.style.display = 'block';
+            } else {
+                alert('Por favor, ingresa un correo electrónico válido.');
+            }
+        });
+        
+        submitPetBtn.addEventListener('click', function() {
+            const petType = document.getElementById('pet-type').value;
+            const petBreed = document.getElementById('pet-breed').value;
+            const petAge = document.getElementById('pet-age').value;
+            
+            if (petType && petBreed && petAge) {
+                alert('¡Solicitud de transporte enviada con éxito! En breve nos pondremos en contacto contigo.');
+                petForm.style.display = 'none';
+                loginForm.style.display = 'block';
+                document.getElementById('email').value = '';
+                document.getElementById('pet-type').value = '';
+                document.getElementById('pet-breed').value = '';
+                document.getElementById('pet-age').value = '';
+                document.getElementById('pet-health').value = '';
+            } else {
+                alert('Por favor, completa todos los campos obligatorios.');
+            }
+        });
+    </script>
+</body>
+</html>
+index.html
+Mostrando index.html.
